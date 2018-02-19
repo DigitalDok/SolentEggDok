@@ -8,12 +8,18 @@ public class GameManager : MonoBehaviour {
     public static GameManager TheGameManager;
 
     public int Score;
-
     private Text ScoreText;
 
-	void Start ()
+    public Sprite OpenDoorSprite;
+    public Sprite ClosedDoorSprite;
+
+    private void Awake()
     {
         TheGameManager = this;
+    }
+
+    void Start ()
+    {
         ScoreText = transform.Find("Score").gameObject.GetComponent<Text>();
 	}
 	

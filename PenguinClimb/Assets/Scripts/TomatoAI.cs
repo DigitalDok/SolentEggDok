@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TomatoAI : MonoBehaviour {
 
-    public bool bIsFacingRight;
+    public bool IsFacingRight;
     public float WalkSpeed;
     private Rigidbody2D MyRigid;
 
@@ -13,7 +13,7 @@ public class TomatoAI : MonoBehaviour {
 	void Start ()
     {
         MyRigid = GetComponent<Rigidbody2D>();
-        MyRigid.velocity = new Vector2(WalkSpeed * ((bIsFacingRight)?1:-1), 0);
+        MyRigid.velocity = new Vector2(WalkSpeed * ((IsFacingRight)?1:-1), 0);
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,10 +26,10 @@ public class TomatoAI : MonoBehaviour {
 
     private void Flip()
     {
-        bIsFacingRight = !bIsFacingRight;
+        IsFacingRight = !IsFacingRight;
         Vector3 Scale = transform.localScale;
         Scale.x *= -1;
         transform.localScale = Scale;
-        MyRigid.velocity = new Vector2(WalkSpeed * ((bIsFacingRight) ? 1 : -1), 0);
+        MyRigid.velocity = new Vector2(WalkSpeed * ((IsFacingRight) ? 1 : -1), 0);
     }
 }
