@@ -24,8 +24,16 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> Doors_Floor_2 = new List<GameObject>();
     public List<GameObject> Doors_Floor_1 = new List<GameObject>();
 
+    internal PlayerMovement ThePlayer;
+
     [Header("Spawning")]
     public int EnemiesToSpawnInit;
+
+    public float EnemySpawnCooldown;
+    private float CurEnemySpawnCooldown;
+    internal int EnemiesOnLevel;
+    public int MaxEnemiesOnLevel;
+    private int PrevLevels=4;
 
     private void Awake()
     {
@@ -66,6 +74,7 @@ public class GameManager : MonoBehaviour {
                 {
                     DoorsChecked.Add(Doors[R]);
                     GameObject Tomatello = Instantiate(TomatoEnemy, Doors[R].transform.position, Quaternion.identity);
+                    EnemiesOnLevel++;
                     break;
                 }
 
@@ -73,11 +82,99 @@ public class GameManager : MonoBehaviour {
             }
             
         }
+
+        ThePlayer = GameObject.Find("Penguin").GetComponent<PlayerMovement>();
 	}
-	
 	
 	void Update ()
     {
         ScoreText.text = "SCORE: " + Score.ToString("0000");
+
+        if (EnemiesOnLevel < MaxEnemiesOnLevel)
+        {
+            CurEnemySpawnCooldown += Time.deltaTime;
+            if (CurEnemySpawnCooldown > EnemySpawnCooldown)
+            {
+                CurEnemySpawnCooldown = 0;
+                
+                List<GameObject> DoorsToWorkWith = new List<GameObject>();
+
+                if (ThePlayer.Floor == 1)
+                {
+                    foreach (var item in Doors_Floor_2)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                    foreach (var item in Doors_Floor_3)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                    foreach (var item in Doors_Floor_4)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                }
+                if (ThePlayer.Floor == 2)
+                {
+                    foreach (var item in Doors_Floor_1)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                    foreach (var item in Doors_Floor_3)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                    foreach (var item in Doors_Floor_4)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                }
+                if (ThePlayer.Floor == 3)
+                {
+                    foreach (var item in Doors_Floor_2)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                    foreach (var item in Doors_Floor_1)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                    foreach (var item in Doors_Floor_4)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                }
+                if (ThePlayer.Floor == 4)
+                {
+                    foreach (var item in Doors_Floor_2)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                    foreach (var item in Doors_Floor_3)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                    foreach (var item in Doors_Floor_1)
+                    {
+                        DoorsToWorkWith.Add(item);
+                    }
+                }
+
+                int R = UnityEngine.Random.Range(0, DoorsToWorkWith.Count - 1);
+
+                if (!DoorsToWorkWith[R].GetComponent<DoorScript>().IsOpen)
+                    DoorsToWorkWith[R].GetComponent<DoorScript>().OpenDoor();
+                
+                GameObject Tomatello = Instantiate(TomatoEnemy, DoorsToWorkWith[R].transform.position, Quaternion.identity);
+                EnemiesOnLevel++;
+
+                if (PrevLevels == 4) PrevLevels--;
+                if (PrevLevels == 3) PrevLevels--;
+                if (PrevLevels == 2) PrevLevels = 4;
+
+                
+
+            }
+        }
 	}
 }

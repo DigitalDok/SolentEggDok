@@ -13,8 +13,11 @@ public class PlayerMovement : MonoBehaviour {
 
     public GameObject IceBallProjectile;
     public float ProjectileSpeed;
+    private GameObject IceBall;
 
     private Transform PlayerSpawn;
+
+    public int Floor = 1;
 
     [Header("Debugging")]
     public float GroundedRaycastLength = -0.8f;
@@ -31,8 +34,9 @@ public class PlayerMovement : MonoBehaviour {
     private Transform ShootingOrigin;
     private bool HasJumped = true;
     private float CurJumpCD;
-    
-
+    private bool StopAllMovement;
+    private bool WillNowJump;
+    private bool WillNowAttack;
 
     void Start ()
     {
@@ -58,7 +62,11 @@ public class PlayerMovement : MonoBehaviour {
             }
             else if (CurrentNavigator)
             {
+                Floor = CurrentNavigator.ThisLeadsTo.gameObject.GetComponent<NavigatorScript>().Floor;
+                
+
                 transform.position = CurrentNavigator.ThisLeadsTo.transform.position;
+
             }
         }
 
@@ -67,18 +75,47 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (IsGrounded && MyRigid.velocity.y >= 0)
             {
-                MyRigid.velocity = new Vector2(0, 0);
-                MyRigid.AddForce(new Vector2((IsFacingRight?TrajectoryStrength:-TrajectoryStrength), JumpStrength));
-                HasJumped = true;
+                MyRigid.velocity = new Vector2(0, MyRigid.velocity.y);
+                StopAllMovement = true;
+                WillNowJump = true;
             }
         }
-
+        if(Input.GetButtonUp("Jump") && WillNowJump)
+        {
+            if (IsGrounded && MyRigid.velocity.y >= 0)
+            {
+                MyRigid.velocity = new Vector2(0, 0);
+                MyRigid.AddForce(new Vector2((IsFacingRight ? TrajectoryStrength : -TrajectoryStrength), JumpStrength));
+                HasJumped = true;
+            }
+            StopAllMovement = false;
+            WillNowJump = false;
+        }
 
         // Shooting Projectiles
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
-            GameObject IceBall = Instantiate(IceBallProjectile, ShootingOrigin.position, Quaternion.identity);
-            IceBall.GetComponent<Rigidbody2D>().velocity = new Vector2(ProjectileSpeed * (IsFacingRight?1:-1), 0);
+            if (IsGrounded && MyRigid.velocity.y >= 0)
+            {
+                MyRigid.velocity = new Vector2(0, MyRigid.velocity.y);
+                StopAllMovement = true;
+                WillNowAttack = true;
+            }
+        }
+        if (Input.GetButtonUp("Fire1") && WillNowAttack)
+        {
+            if(IceBall)
+            {
+                if (IceBall.activeInHierarchy)
+                {
+                    StopAllMovement = false;
+                    return;
+                }
+            }
+            WillNowAttack = false;
+            IceBall = Instantiate(IceBallProjectile, ShootingOrigin.position, Quaternion.identity);
+            IceBall.GetComponent<Rigidbody2D>().velocity = new Vector2(ProjectileSpeed * (IsFacingRight ? 1 : -1), 0);
+            StopAllMovement = false;
         }
 
 
@@ -100,6 +137,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else
         {
+            if(!StopAllMovement)
             MyRigid.velocity = new Vector2(Input.GetAxis("Horizontal") * MoveSpeed, MyRigid.velocity.y);
         }
     }
@@ -128,12 +166,19 @@ public class PlayerMovement : MonoBehaviour {
         else if (collision.GetComponent<DoorScript>())
         {
             CurrentDoor = collision.GetComponent<DoorScript>();
+
+            if (CurrentDoor.IsOpen) CurrentDoor.CloseDoor();
         }
         else if (collision.CompareTag("Monster"))
         {
-            GetComponent<BoxCollider2D>().enabled = false;
-            StartCoroutine(RespawnPlayer());
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
+        StartCoroutine(RespawnPlayer());
     }
 
     public IEnumerator RespawnPlayer()
@@ -142,6 +187,7 @@ public class PlayerMovement : MonoBehaviour {
         GetComponent<BoxCollider2D>().enabled = true;
         MyRigid.velocity = Vector2.zero;
         transform.position = PlayerSpawn.position;
+        Floor = 1;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
