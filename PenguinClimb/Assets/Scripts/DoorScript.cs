@@ -16,6 +16,8 @@ public class DoorScript : MonoBehaviour {
         MyRenderer = GetComponent<SpriteRenderer>();
         OpenDoorSprite = GameManager.TheGameManager.OpenDoorSprite;
         ClosedDoorSprite = GameManager.TheGameManager.ClosedDoorSprite;
+
+        MyRenderer.sprite = (IsOpen ? OpenDoorSprite : ClosedDoorSprite);
 	}
 	
 

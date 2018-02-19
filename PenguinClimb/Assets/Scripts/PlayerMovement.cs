@@ -14,13 +14,15 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject IceBallProjectile;
     public float ProjectileSpeed;
 
+    private Transform PlayerSpawn;
+
     [Header("Debugging")]
     public float GroundedRaycastLength = -0.8f;
 
     private Rigidbody2D MyRigid;
     private Animator MyAnim;
 
-    private bool IsFacingRight = true;
+    internal bool IsFacingRight = true;
     private RaycastHit2D IsGrounded;
 
     private DoorScript CurrentDoor;
@@ -31,11 +33,13 @@ public class PlayerMovement : MonoBehaviour {
     private float CurJumpCD;
     
 
+
     void Start ()
     {
         MyRigid = GetComponent<Rigidbody2D>();
         MyAnim = GetComponent<Animator>();
         ShootingOrigin = transform.Find("ShootingOrigin");
+        PlayerSpawn = GameObject.Find("PlayerSpawn").transform;
 	}
 
     private void Update()
@@ -125,6 +129,19 @@ public class PlayerMovement : MonoBehaviour {
         {
             CurrentDoor = collision.GetComponent<DoorScript>();
         }
+        else if (collision.CompareTag("Monster"))
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+            StartCoroutine(RespawnPlayer());
+        }
+    }
+
+    public IEnumerator RespawnPlayer()
+    {
+        yield return new WaitForSeconds(2);
+        GetComponent<BoxCollider2D>().enabled = true;
+        MyRigid.velocity = Vector2.zero;
+        transform.position = PlayerSpawn.position;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
