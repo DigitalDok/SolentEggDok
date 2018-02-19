@@ -44,9 +44,6 @@ public class PlayerMovement : MonoBehaviour {
     void FixedUpdate ()
     {
         MyRigid.velocity = new Vector2(Input.GetAxis("Horizontal") * MoveSpeed, MyRigid.velocity.y);
-        
-
-        
     }
 
     private void Flip()
@@ -60,5 +57,15 @@ public class PlayerMovement : MonoBehaviour {
     private bool ShouldFlip()
     {
         return MyRigid.velocity.x > 0 && !bIsFacingRight || MyRigid.velocity.x < 0 && bIsFacingRight;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponent<Pickup>())
+        {
+            print("Picked up a " + collision.name);
+            GameManager.TheGameManager.Score += collision.GetComponent<Pickup>().ScorePts;
+            collision.gameObject.SetActive(false);
+        }
     }
 }
