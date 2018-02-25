@@ -76,6 +76,12 @@ public class GameManager : MonoBehaviour {
                     DoorsChecked.Add(Doors[R]);
                     GameObject Tomatello = Instantiate(TomatoEnemy, Doors[R].transform.position, Quaternion.identity);
                     EnemiesOnLevel++;
+
+                    if(Doors_Floor_1.Contains(Doors[R])) Tomatello.GetComponent<EnemyInfo>().Floor = 1;
+                    if (Doors_Floor_2.Contains(Doors[R])) Tomatello.GetComponent<EnemyInfo>().Floor = 2;
+                    if (Doors_Floor_3.Contains(Doors[R])) Tomatello.GetComponent<EnemyInfo>().Floor = 3;
+                    if (Doors_Floor_4.Contains(Doors[R])) Tomatello.GetComponent<EnemyInfo>().Floor = 4;
+                    
                     break;
                 }
 
@@ -168,6 +174,11 @@ public class GameManager : MonoBehaviour {
                 
                 GameObject Tomatello = Instantiate(TomatoEnemy, DoorsToWorkWith[R].transform.position, Quaternion.identity);
                 EnemiesOnLevel++;
+
+                if (Doors_Floor_1.Contains(DoorsToWorkWith[R])) Tomatello.GetComponent<EnemyInfo>().Floor = 1;
+                if (Doors_Floor_2.Contains(DoorsToWorkWith[R])) Tomatello.GetComponent<EnemyInfo>().Floor = 2;
+                if (Doors_Floor_3.Contains(DoorsToWorkWith[R])) Tomatello.GetComponent<EnemyInfo>().Floor = 3;
+                if (Doors_Floor_4.Contains(DoorsToWorkWith[R])) Tomatello.GetComponent<EnemyInfo>().Floor = 4;
 
                 if (PrevLevels == 4) PrevLevels--;
                 if (PrevLevels == 3) PrevLevels--;

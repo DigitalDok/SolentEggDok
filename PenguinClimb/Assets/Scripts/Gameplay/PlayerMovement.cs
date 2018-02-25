@@ -120,6 +120,7 @@ public class PlayerMovement : MonoBehaviour {
 
                 IceBall = Instantiate(IceBallProjectile, ShootingOrigin.position, Quaternion.identity);
                 IceBall.GetComponent<Rigidbody2D>().velocity = new Vector2(ProjectileSpeed * (IsFacingRight ? 1 : -1), 0);
+                IceBall.GetComponent<IceBallScript>().Floor = Floor;
                
             }
         }
@@ -163,7 +164,7 @@ public class PlayerMovement : MonoBehaviour {
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Pickup>())
+        if (collision.GetComponent<Pickup>())
         {
             print("Picked up a " + collision.name);
             GameManager.TheGameManager.Score += collision.GetComponent<Pickup>().ScorePts;
@@ -177,7 +178,10 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if (collision.CompareTag("Monster"))
         {
-            Die();
+            if (Floor == collision.GetComponent<EnemyInfo>().Floor)
+            {
+                Die();
+            }
         }
     }
 

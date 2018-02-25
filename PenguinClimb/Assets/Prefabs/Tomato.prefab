@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50713995650411862}
   - component: {fileID: 58031711164896964}
   - component: {fileID: 61299127749676658}
+  - component: {fileID: 114418852391411418}
   m_Layer: 9
   m_Name: Tomato
   m_TagString: Monster
@@ -122,6 +123,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114418852391411418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1232262381868514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839ba1054d2bbe24488e640bf23ce91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Floor: 0
+  HP: 0
 --- !u!114 &114725213257122986
 MonoBehaviour:
   m_ObjectHideFlags: 1
