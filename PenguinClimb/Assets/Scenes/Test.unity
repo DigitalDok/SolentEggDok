@@ -1427,7 +1427,7 @@ Prefab:
     - target: {fileID: 114388417496697198, guid: 646973e5de1dd8a44b01b36e7a2eea1b,
         type: 2}
       propertyPath: Floor
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114709966923779970, guid: 646973e5de1dd8a44b01b36e7a2eea1b,
         type: 2}
