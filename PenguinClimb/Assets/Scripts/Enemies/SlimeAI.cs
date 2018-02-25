@@ -64,6 +64,9 @@ public class SlimeAI : MonoBehaviour {
         MyRigid.AddForce(new Vector2(0, JumpStrength));
         MyRenderer.sprite = JumpingSprite;
 
+        if(!JumpWhenCharJumps)
+        JumpingCooldown = UnityEngine.Random.Range(1, 5);
+
     }
 
     private bool LookingAtPlayer()
