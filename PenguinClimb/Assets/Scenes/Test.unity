@@ -400,6 +400,48 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1001 &176729873
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.75536156
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1.642
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_RootOrder
+      value: 24
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &199683078
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +812,26 @@ Prefab:
         type: 2}
       propertyPath: TrajectoryStrength
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114926861149291210, guid: 7024ce872d8f0e74fa6fa2657dfd483a,
+        type: 2}
+      propertyPath: JumpStrength
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 114926861149291210, guid: 7024ce872d8f0e74fa6fa2657dfd483a,
+        type: 2}
+      propertyPath: MaxJumpVelocity
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114926861149291210, guid: 7024ce872d8f0e74fa6fa2657dfd483a,
+        type: 2}
+      propertyPath: JumpHoldMultiplier
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114926861149291210, guid: 7024ce872d8f0e74fa6fa2657dfd483a,
+        type: 2}
+      propertyPath: HoldJumpCD
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7024ce872d8f0e74fa6fa2657dfd483a, type: 2}
@@ -2085,6 +2147,106 @@ Transform:
   m_Father: {fileID: 773709800}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1013998366
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.75536156
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_RootOrder
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 3.144828
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 3.1448283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715477686267760, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 3.1448283
+      objectReference: {fileID: 0}
+    - target: {fileID: 1564398431461194, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+      propertyPath: m_Name
+      value: Slime (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 212758460772943880, guid: ceca22692f79fc840997d8a1b00f6871,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212758460772943880, guid: ceca22692f79fc840997d8a1b00f6871,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.37931013
+      objectReference: {fileID: 0}
+    - target: {fileID: 212758460772943880, guid: ceca22692f79fc840997d8a1b00f6871,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114504913629242720, guid: ceca22692f79fc840997d8a1b00f6871,
+        type: 2}
+      propertyPath: JumpWhenCharJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114366347093876168, guid: ceca22692f79fc840997d8a1b00f6871,
+        type: 2}
+      propertyPath: Floor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114504913629242720, guid: ceca22692f79fc840997d8a1b00f6871,
+        type: 2}
+      propertyPath: NormalSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 24a5fd2a39d675b4b93d85038e04792d,
+        type: 3}
+    - target: {fileID: 114504913629242720, guid: ceca22692f79fc840997d8a1b00f6871,
+        type: 2}
+      propertyPath: JumpingSprite
+      value: 
+      objectReference: {fileID: 21300002, guid: 24a5fd2a39d675b4b93d85038e04792d,
+        type: 3}
+    - target: {fileID: 114322772246486050, guid: ceca22692f79fc840997d8a1b00f6871,
+        type: 2}
+      propertyPath: WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ceca22692f79fc840997d8a1b00f6871, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1098950510
 GameObject:
   m_ObjectHideFlags: 0

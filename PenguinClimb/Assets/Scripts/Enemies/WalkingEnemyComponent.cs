@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TomatoAI : MonoBehaviour {
+public class WalkingEnemyComponent : MonoBehaviour {
 
     public bool IsFacingRight;
     public float WalkSpeed;

@@ -38,7 +38,7 @@ public class IceBlockScript : MonoBehaviour {
         }
         else if(collision.gameObject.CompareTag("Player"))
         {
-            if (Mathf.Abs(MyRigid.velocity.x) > 0)
+            if (Mathf.Abs(MyRigid.velocity.x) > 0 && Bounces==1)
             {
                 GameManager.TheGameManager.ThePlayer.Die();
             }
@@ -49,7 +49,6 @@ public class IceBlockScript : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            
             
             MyRigid.velocity = new Vector2(SlideSpeed * (collision.gameObject.GetComponent<PlayerMovement>().IsFacingRight ? 1 : -1), 0);
             

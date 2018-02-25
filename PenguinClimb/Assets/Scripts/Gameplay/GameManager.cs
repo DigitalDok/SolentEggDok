@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
     private void Awake()
     {
         TheGameManager = this;
+        ThePlayer = GameObject.Find("Penguin").GetComponent<PlayerMovement>();
     }
 
     void Start ()
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour {
             
         }
 
-        ThePlayer = GameObject.Find("Penguin").GetComponent<PlayerMovement>();
+        
 	}
 	
 	void Update ()

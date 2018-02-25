@@ -8,8 +8,10 @@ public class PlayerMovement : MonoBehaviour {
     [Header("Gameplay")]
     public float MoveSpeed;
     public float JumpStrength;
-    public float TrajectoryStrength;
     public float JumpCD;
+    public float JumpHoldMultiplier;
+    private float CurHoldJump;
+    public float HoldJumpCD;
 
     public GameObject IceBallProjectile;
     public float ProjectileSpeed;
@@ -37,6 +39,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool StopAllMovement;
     private bool WillNowJump;
     private bool WillNowAttack;
+    private bool CanHoldForMore;
+    
 
     void Start ()
     {
@@ -75,21 +79,29 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (IsGrounded && MyRigid.velocity.y >= 0)
             {
-                MyRigid.velocity = new Vector2(0, MyRigid.velocity.y);
-                StopAllMovement = true;
-                WillNowJump = true;
+                MyRigid.gravityScale = 1;
+                MyRigid.velocity = new Vector2(0, 0);
+                MyRigid.AddForce(new Vector2(0, JumpStrength));
+                CanHoldForMore = true;
+                CurHoldJump = 0;
+
             }
         }
-        if(Input.GetButtonUp("Jump") && WillNowJump)
+        if(Input.GetButton("Jump") && CanHoldForMore)
         {
-            if (IsGrounded && MyRigid.velocity.y >= 0)
+            CurHoldJump += Time.deltaTime;
+            if(CurHoldJump > HoldJumpCD)
             {
-                MyRigid.velocity = new Vector2(0, 0);
-                MyRigid.AddForce(new Vector2((IsFacingRight ? TrajectoryStrength : -TrajectoryStrength), JumpStrength));
-                HasJumped = true;
+                CanHoldForMore = false;
+                CurHoldJump = 0;
+                return;
             }
-            StopAllMovement = false;
-            WillNowJump = false;
+
+            if(MyRigid.velocity.y > 0 )
+            {
+                MyRigid.AddRelativeForce(new Vector2(0, JumpStrength * JumpHoldMultiplier * Time.deltaTime));
+                MyRigid.gravityScale += Time.deltaTime;
+            }
         }
 
         // Shooting Projectiles
@@ -97,25 +109,19 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (IsGrounded && MyRigid.velocity.y >= 0)
             {
-                MyRigid.velocity = new Vector2(0, MyRigid.velocity.y);
-                StopAllMovement = true;
-                WillNowAttack = true;
-            }
-        }
-        if (Input.GetButtonUp("Fire1") && WillNowAttack)
-        {
-            if(IceBall)
-            {
-                if (IceBall.activeInHierarchy)
+                if (IceBall)
                 {
-                    StopAllMovement = false;
-                    return;
+                    if (IceBall.activeInHierarchy)
+                    {
+                        StopAllMovement = false;
+                        return;
+                    }
                 }
+
+                IceBall = Instantiate(IceBallProjectile, ShootingOrigin.position, Quaternion.identity);
+                IceBall.GetComponent<Rigidbody2D>().velocity = new Vector2(ProjectileSpeed * (IsFacingRight ? 1 : -1), 0);
+               
             }
-            WillNowAttack = false;
-            IceBall = Instantiate(IceBallProjectile, ShootingOrigin.position, Quaternion.identity);
-            IceBall.GetComponent<Rigidbody2D>().velocity = new Vector2(ProjectileSpeed * (IsFacingRight ? 1 : -1), 0);
-            StopAllMovement = false;
         }
 
 
