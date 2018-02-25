@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
     public int Score;
     private Text ScoreText;
 
+    public GameObject SushiDrop;
+
     [Header("Door Sprites")]
     public Sprite OpenDoorSprite;
     public Sprite ClosedDoorSprite;

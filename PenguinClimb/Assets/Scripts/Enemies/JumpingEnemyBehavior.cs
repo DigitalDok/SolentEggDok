@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeAI : MonoBehaviour {
+public class JumpingEnemyBehavior : MonoBehaviour {
     
     internal EnemyInfo MyInfo;
 
@@ -20,6 +20,13 @@ public class SlimeAI : MonoBehaviour {
     public Sprite JumpingSprite;
     private SpriteRenderer MyRenderer;
 
+    public enum EnemyType
+    {
+        Slime,
+        SushiBag
+    }
+    public EnemyType MyType;
+
     private void Start()
     {
         MyRigid = GetComponent<Rigidbody2D>();
@@ -35,28 +42,43 @@ public class SlimeAI : MonoBehaviour {
         if (CurJumpCooldown>0.6f && IsGrounded) MyRenderer.sprite = NormalSprite;
 
         CurJumpCooldown += Time.deltaTime;
-        if (MyInfo.Floor == MyInfo.ThePlayer.Floor)
+
+        switch (MyType)
         {
-            if (LookingAtPlayer())
-            {
-                if(CurJumpCooldown>JumpingCooldown)
+            case EnemyType.Slime:
+                if (MyInfo.Floor == MyInfo.ThePlayer.Floor)
                 {
-                    if(JumpWhenCharJumps)
+                    if (LookingAtPlayer())
                     {
-                        if(MyInfo.ThePlayer.GetComponent<Rigidbody2D>().velocity.y > 0)
+                        if (CurJumpCooldown > JumpingCooldown)
                         {
-                            CurJumpCooldown = 0;
-                            Jump();
+                            if (JumpWhenCharJumps)
+                            {
+                                if (MyInfo.ThePlayer.GetComponent<Rigidbody2D>().velocity.y > 0)
+                                {
+                                    CurJumpCooldown = 0;
+                                    Jump();
+                                }
+                            }
+                            else
+                            {
+                                CurJumpCooldown = 0;
+                                Jump();
+                            }
                         }
                     }
-                    else
-                    {
-                        CurJumpCooldown = 0;
-                        Jump();
-                    }
                 }
-            }
+                break;
+            case EnemyType.SushiBag:
+                if (CurJumpCooldown > JumpingCooldown)
+                {
+                    CurJumpCooldown = 0;
+                    Jump();
+                }
+                break;
         }
+
+        
     }
 
     private void Jump()

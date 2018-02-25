@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if (collision.CompareTag("Monster"))
         {
-            if (Floor == collision.GetComponent<EnemyInfo>().Floor)
+            if (Floor == collision.GetComponent<EnemyInfo>().Floor || collision.GetComponent<EnemyInfo>().Floor==10)
             {
                 Die();
             }

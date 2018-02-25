@@ -19,6 +19,9 @@ public class IceBallScript : MonoBehaviour {
                 GameObject IceBlock = Instantiate(IceBlockPref, collision.gameObject.transform.position, Quaternion.identity);
                 GameManager.TheGameManager.EnemiesOnLevel--;
                 IceBlock.GetComponent<IceBlockScript>().Floor = Floor;
+
+                if (collision.name.Contains("Sushi Bag"))
+                    IceBlock.GetComponent<IceBlockScript>().Drop = GameManager.TheGameManager.SushiDrop;
             }
         }
         if (collision.CompareTag("Wall"))
