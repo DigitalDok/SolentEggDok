@@ -86,7 +86,7 @@ public class JumpingEnemyBehavior : MonoBehaviour {
         MyRigid.AddForce(new Vector2(0, JumpStrength));
         MyRenderer.sprite = JumpingSprite;
 
-        if(!JumpWhenCharJumps)
+        if(!JumpWhenCharJumps && MyType!= EnemyType.SushiBag)
         JumpingCooldown = UnityEngine.Random.Range(1, 5);
 
     }
