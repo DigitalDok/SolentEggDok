@@ -42,6 +42,10 @@ public class BigBoyAI : MonoBehaviour {
         switch (MyStates)
         {
             case States.Walking:
+
+                if (!GetComponent<BoxCollider2D>().enabled)
+                    GetComponent<BoxCollider2D>().enabled = true;
+
                 break;
             case States.Stomping:
                 CurStompCD += Time.deltaTime;
